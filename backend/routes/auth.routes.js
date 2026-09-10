@@ -22,11 +22,30 @@ router.get('/google/callback',
     }
     next();
   },
-  passport.authenticate('google', { failureRedirect: '/' }),
-  (req, res) => {
-    const returnTo = req.session.returnTo || '/profile';
-    delete req.session.returnTo;
-    res.redirect(`${FRONTEND_URL}${returnTo.startsWith('/') ? returnTo : '/profile'}`);
+  (req, res, next) => {
+    passport.authenticate('google', (err, user, info) => {
+      if (err) {
+        console.error('[Google OAuth Error]:', err);
+        return res.status(500).json({
+          error: 'Google authentication failed',
+          message: err.message,
+          details: err.oauthError ? err.oauthError.data : (err.toString ? err.toString() : err)
+        });
+      }
+      if (!user) {
+        console.warn('[Google OAuth] No user returned:', info);
+        return res.redirect(`${FRONTEND_URL}/?auth=failed`);
+      }
+      req.logIn(user, (loginErr) => {
+        if (loginErr) {
+          console.error('[Google OAuth Login Error]:', loginErr);
+          return res.status(500).json({ error: 'Session login failed', message: loginErr.message });
+        }
+        const returnTo = req.session.returnTo || '/profile';
+        delete req.session.returnTo;
+        return res.redirect(`${FRONTEND_URL}${returnTo.startsWith('/') ? returnTo : '/profile'}`);
+      });
+    })(req, res, next);
   }
 );
 

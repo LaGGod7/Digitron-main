@@ -31,6 +31,8 @@ const reviewsRouter = require('./routes/reviews.routes');
 const productsRouter = require('./routes/products.routes');
 
 const app = express();
+app.set('trust proxy', 1);
+
 const PORT = process.env.PORT || 5000;
 const rawFrontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
 const allowedOrigins = rawFrontendUrl.split(',').map(s => s.trim()).filter(Boolean);
@@ -63,11 +65,16 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(cookieParser());
 
+const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL);
 const sessionConfig = {
   secret: process.env.SESSION_SECRET || 'digitron-session-secret',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
+  cookie: {
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    secure: isProduction,
+    sameSite: isProduction ? 'lax' : 'lax'
+  }
 };
 
 if (USE_MONGO_SESSION_STORE) {
@@ -168,6 +175,15 @@ app.use('/api/admin', adminRouter);
 app.use('/api/quotes', quotesRouter);
 app.use('/api/reviews', reviewsRouter);
 app.use('/api', productsRouter);
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+  logger.error('Unhandled server error:', err);
+  res.status(500).json({
+    error: 'Internal Server Error',
+    message: err.message || 'An unexpected error occurred'
+  });
+});
 
 if (require.main === module) {
   app.listen(PORT, () => {
