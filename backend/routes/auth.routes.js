@@ -5,7 +5,14 @@ const { customerProfilePayload } = require('../utils/helpers');
 const router = express.Router();
 
 const GOOGLE_AUTH_CONFIGURED = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
-const FRONTEND_URL = (process.env.FRONTEND_URL || 'http://localhost:5173').trim();
+const resolveRedirectBase = (req) => {
+  const host = req.headers['x-forwarded-host'] || req.headers.host;
+  if (host && !host.includes('localhost')) {
+    const proto = req.headers['x-forwarded-proto'] || 'https';
+    return `${proto}://${host}`;
+  }
+  return (process.env.FRONTEND_URL || 'http://localhost:5173').trim();
+};
 
 router.get('/google', (req, res, next) => {
   if (!GOOGLE_AUTH_CONFIGURED) {
@@ -18,12 +25,14 @@ router.get('/google', (req, res, next) => {
 router.get('/google/callback',
   (req, res, next) => {
     if (!GOOGLE_AUTH_CONFIGURED) {
-      return res.redirect(`${FRONTEND_URL}/?auth=google-not-configured`);
+      const baseUrl = resolveRedirectBase(req);
+      return res.redirect(`${baseUrl}/?auth=google-not-configured`);
     }
     next();
   },
   (req, res, next) => {
     passport.authenticate('google', (err, user, info) => {
+      const baseUrl = resolveRedirectBase(req);
       if (err) {
         console.error('[Google OAuth Error]:', err);
         return res.status(500).json({
@@ -34,7 +43,7 @@ router.get('/google/callback',
       }
       if (!user) {
         console.warn('[Google OAuth] No user returned:', info);
-        return res.redirect(`${FRONTEND_URL}/?auth=failed`);
+        return res.redirect(`${baseUrl}/?auth=failed`);
       }
       req.logIn(user, (loginErr) => {
         if (loginErr) {
@@ -47,7 +56,7 @@ router.get('/google/callback',
           if (saveErr) {
             console.error('[Session Save Error]:', saveErr);
           }
-          return res.redirect(`${FRONTEND_URL}${returnTo.startsWith('/') ? returnTo : '/profile'}`);
+          return res.redirect(`${baseUrl}${returnTo.startsWith('/') ? returnTo : '/profile'}`);
         });
       });
     })(req, res, next);
