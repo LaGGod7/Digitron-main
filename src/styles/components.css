@@ -1,0 +1,218 @@
+/* ==========================================================================
+   UI Components Styling
+   ========================================================================== */
+
+/* --- Button Component --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  border-radius: var(--radius-button, 6px);
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: transform 100ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+  text-decoration: none;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Primary: gold fill, ink text... actually ink-on-gold: background var(--color-gold), color #fff, hover var(--color-gold-dark) */
+.btn-primary {
+  background-color: var(--color-gold);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-gold-dark);
+}
+
+/* Secondary: transparent bg, 1px border strong, ink text, bg-hover */
+.btn-secondary {
+  background-color: transparent;
+  border-color: var(--color-border-strong);
+  color: var(--color-ink);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-bg);
+}
+
+/* Ghost: no border, no bg, underline on hover */
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-ink);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+/* Destructive: color danger, border danger on hover */
+.btn-destructive {
+  background-color: transparent;
+  color: var(--color-danger);
+  border-color: transparent;
+}
+
+.btn-destructive:hover:not(:disabled) {
+  border-color: var(--color-danger);
+}
+
+/* --- StatusLabel / Badge Component --- */
+.status-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: var(--radius-pill, 20px);
+  text-transform: capitalize;
+  border: 1px solid transparent;
+}
+
+.status-success {
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.status-warning {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.status-danger {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+.status-featured {
+  background-color: var(--color-gold-glow, rgba(202, 138, 4, 0.08));
+  color: var(--color-gold);
+  border-color: rgba(202, 138, 4, 0.2);
+}
+
+/* --- Card Component --- */
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card, 10px);
+  padding: 16px;
+  transition: transform 150ms ease, border-color 150ms ease;
+}
+
+.card-interactive {
+  cursor: pointer;
+}
+
+.card-interactive:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px) scale(1.01);
+}
+
+/* --- Form Input / Select / Textarea Components --- */
+.form-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.form-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink);
+  align-self: flex-start;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input, 6px);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-ink);
+  background-color: var(--color-surface);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  outline: none;
+}
+
+.form-input,
+.form-select {
+  height: 36px;
+  padding: 0 12px;
+}
+
+.form-textarea {
+  min-height: 80px;
+  padding: 8px 12px;
+  resize: vertical;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(202, 138, 4, 0.15);
+}
+
+.form-input:disabled,
+.form-select:disabled,
+.form-textarea:disabled {
+  background-color: var(--color-bg);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* --- Chip Component --- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill, 20px);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+  border: 1px solid var(--color-border);
+}
+
+.chip-unselected {
+  background-color: var(--color-surface);
+  color: var(--color-ink-soft);
+}
+
+.chip-unselected:hover {
+  border-color: var(--color-border-strong);
+  background-color: var(--color-bg);
+}
+
+.chip-selected {
+  background-color: var(--color-ink);
+  color: #FFFFFF;
+  border-color: var(--color-ink);
+}

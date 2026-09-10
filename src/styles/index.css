@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@import "./tokens.css";
+@import "./motion.css";
+@import "./components.css";
+@import "./base.css";
+@import "./loader.css";
+@import "./navbar.css";
+@import "./customer.css";
+@import "./hero.css";
+@import "./filters.css";
+@import "./category-page.css";
+@import "./product-card.css";
+@import "./compare.css";
+@import "./product-detail.css";
+@import "./reviews.css";
+@import "./packages.css";
+@import "./contact.css";
+@import "./footer.css";
+@import "./admin.css";

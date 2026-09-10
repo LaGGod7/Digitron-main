@@ -1,0 +1,30 @@
+/* CARD HOVER: transform 150ms ease, border-color 150ms ease */
+.card-hover-transition {
+  transition: transform 150ms ease, border-color 150ms ease;
+}
+
+.card-hover-transition:hover {
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px) scale(1.01);
+}
+
+/* BUTTON ACTIVE: transform 100ms ease (scale 0.98) */
+.button-active-transition {
+  transition: transform 100ms ease;
+}
+
+.button-active-transition:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* PRODUCT CARD ENTRANCE: opacity+translateY(8px->0) fade over 200ms */
+.product-card-entrance {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.product-card-entrance.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

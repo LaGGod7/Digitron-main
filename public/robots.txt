@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow admin panel and API routes
+Disallow: /admin
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://digitronassociates.in/sitemap.xml

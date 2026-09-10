@@ -1,0 +1,263 @@
+/* Product Section & Category Grid */
+.products-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.products-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  border-bottom: 2px solid var(--light-gray);
+  padding-bottom: 12px;
+}
+
+.products-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  min-height: 180px;
+  text-align: left;
+  background: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.category-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.category-card:hover::after {
+  opacity: 1;
+}
+
+.category-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gold-tint);
+  border-radius: var(--radius-md);
+  color: var(--gold-dark);
+  margin-bottom: 10px;
+  transition: var(--transition);
+}
+
+.category-card:hover .category-icon {
+  background: var(--gold);
+  color: var(--obsidian);
+  transform: scale(1.05) rotate(5deg);
+}
+
+.category-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--obsidian);
+}
+
+.category-meta {
+  font-size: 13px;
+  color: var(--mid-gray);
+}
+
+.category-brands {
+  margin-top: auto;
+  font-size: 12px;
+  color: var(--mid-gray);
+  line-height: 1.5;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 8px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 24px;
+}
+
+/* -- Category Page Header -- */
+.cat-page-header {
+  background: radial-gradient(circle at 80% 20%, #1e1e1e 0%, var(--obsidian) 100%);
+  padding: 56px 40px 48px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cat-page-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cat-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 28px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.cat-breadcrumb .breadcrumb-link {
+  color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cat-breadcrumb .breadcrumb-link:hover {
+  color: var(--gold-light);
+}
+
+.cat-breadcrumb .breadcrumb-sep {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.cat-header-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.cat-header-icon-wrap {
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1.5px solid rgba(212, 175, 55, 0.25);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+
+.cat-header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.cat-header-desc {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'Outfit', sans-serif;
+}
+
+/* -- Brand Grid -- */
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 20px;
+}
+
+.brand-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px 28px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.brand-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+.brand-card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.brand-card-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.brand-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.brand-card-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  color: var(--mid-gray);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+}
+
+.brand-card-arrow {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  opacity: 0;
+  transition: var(--transition);
+  color: var(--gold-dark);
+}
+
+.brand-card:hover .brand-card-arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
