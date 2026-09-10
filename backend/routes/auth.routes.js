@@ -5,7 +5,7 @@ const { customerProfilePayload } = require('../utils/helpers');
 const router = express.Router();
 
 const GOOGLE_AUTH_CONFIGURED = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+const FRONTEND_URL = (process.env.FRONTEND_URL || 'http://localhost:5173').trim();
 
 router.get('/google', (req, res, next) => {
   if (!GOOGLE_AUTH_CONFIGURED) {
