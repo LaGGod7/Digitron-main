@@ -43,7 +43,12 @@ router.get('/google/callback',
         }
         const returnTo = req.session.returnTo || '/profile';
         delete req.session.returnTo;
-        return res.redirect(`${FRONTEND_URL}${returnTo.startsWith('/') ? returnTo : '/profile'}`);
+        req.session.save((saveErr) => {
+          if (saveErr) {
+            console.error('[Session Save Error]:', saveErr);
+          }
+          return res.redirect(`${FRONTEND_URL}${returnTo.startsWith('/') ? returnTo : '/profile'}`);
+        });
       });
     })(req, res, next);
   }

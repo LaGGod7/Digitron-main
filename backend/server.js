@@ -42,7 +42,7 @@ if (!allowedOrigins.includes('http://localhost:5173')) {
 
 const SESSION_MONGO_URL = process.env.MONGODB_URI || process.env.DATABASE_URL;
 const GOOGLE_AUTH_CONFIGURED = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
-const USE_MONGO_SESSION_STORE = process.env.SESSION_STORE === 'mongo' && !(process.env.VERCEL || process.env.NOW_BUILDER);
+const USE_MONGO_SESSION_STORE = Boolean(SESSION_MONGO_URL);
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -70,18 +70,27 @@ const sessionConfig = {
   secret: process.env.SESSION_SECRET || 'digitron-session-secret',
   resave: false,
   saveUninitialized: false,
+  proxy: true,
   cookie: {
     maxAge: 30 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
     secure: isProduction,
-    sameSite: isProduction ? 'lax' : 'lax'
+    sameSite: 'lax',
+    path: '/'
   }
 };
 
 if (USE_MONGO_SESSION_STORE) {
-  if (!SESSION_MONGO_URL) {
-    throw new Error('SESSION_STORE=mongo requires MONGODB_URI or DATABASE_URL in backend/.env');
+  try {
+    sessionConfig.store = MongoStore.create({
+      mongoUrl: SESSION_MONGO_URL.trim(),
+      ttl: 14 * 24 * 60 * 60,
+      touchAfter: 24 * 3600
+    });
+    logger.info('MongoStore session store initialized');
+  } catch (err) {
+    logger.error('Failed to initialize MongoStore:', err);
   }
-  sessionConfig.store = MongoStore.create({ mongoUrl: SESSION_MONGO_URL });
 }
 
 app.use(session(sessionConfig));
