@@ -17,10 +17,13 @@
     "@floating-ui/react": "^0.27.19",
     "@prisma/client": "^5.22.0",
     "@tanstack/react-query": "^5.100.9",
+    "bcrypt": "^6.0.0",
     "connect-mongo": "^5.1.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^1.24.0",
@@ -32,7 +35,8 @@
     "react-countup": "^6.5.3",
     "react-dom": "^19.2.5",
     "react-intersection-observer": "^10.0.3",
-    "react-router-dom": "^7.15.0"
+    "react-router-dom": "^7.15.0",
+    "zod": "^4.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
